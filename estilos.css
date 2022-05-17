@@ -1,7 +1,7 @@
 body{
 	margin:0;
 	color:#6a6f8c;
-	background:#c8c8c8;
+	background-image: url("https://img.freepik.com/foto-gratis/ingredientes-italianos-apetitosos-frescos-sabrosos-comida-fondo-oscuro-listo-cocinar-inicio-italiano-comida-saludable-concepto-cocina-viraje_1220-1820.jpg?w=2000")
 	font:600 16px/18px 'Open Sans',sans-serif;
 }
 *,:after,:before{box-sizing:border-box}
