@@ -87,7 +87,7 @@ if(isset($_GET['logout'])){
 
 
 <div class="buscador">
-<form class="was-validated" action="index.php?busqueda" method="post">
+<form class="was-validated" action="buscarRest.php" method="post">
 
 <!-- calendario -->
 <?php $diaActual= date('Y-m-d');
@@ -108,16 +108,37 @@ value=<?php echo "$diaActual" ?>
     <div class="centrar">
     <!-- <form class="was-validated"> -->
     <div class="col-md-3 mb-3 mt-5 ml-5">
-      <label for="elegir-zona">Zona</label>
-      <select class="custom-select is-invalid" id="elegir-zona" name="zona" required>
-        <option selected disabled value="">Elija...</option>
-        <option>Wilde</option>
-        <option>Bernal</option>
-        <option>Quilmes</option>
-        <option>Berazategui</option>
-      </select>
+      
+      
+      <label >Zona </label>
+ <select  class="custom-select is-invalid" id="elegir-zona" name="zona" required>
+<?php
+require "conexion.php";
+$con=mysqli_connect($servidorBD, $usuarioBD, $contraBD, $baseDatosBD) or die("no se pudo conectar a la BD");
+  $getZona = "select * from zonas order by descripcion asc";
+  $getZona2 = mysqli_query($con, $getZona);
+ // echo  $getZona2;
 
+  while($row1 = mysqli_fetch_row($getZona2))
+  {
+    $id = $row1[0];
+    $descripcion1 = $row1[1];
+  ?>
+
+  <option value = "<?php echo $id; ?>"> <?php echo $descripcion1 ?> </option>
+  
+  <?php
+  }
+  
+  ?>
+
+</select><br><br>
+        
+      
+      
     </div>
+
+    
     <!-- </form> -->
     </div>
 </div>
