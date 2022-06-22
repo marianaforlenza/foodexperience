@@ -135,14 +135,10 @@ function verificarPasswords() {
         return false;
     } else {
  
-        // Si las contraseñas coinciden ocultamos el mensaje de error
-        
- 
-        // Mostramos un mensaje mencionando que las Contraseñas coinciden 
+       
        
       document.getElementById("login").disabled = true;
-        // Desabilitamos el botón de login 
-       // document.body.innerHTML = '<meta http-equiv="Refresh" content="2; url=registro.php">'
+      
  
          setTimeout(function() {
     location.reload();
