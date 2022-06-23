@@ -71,6 +71,24 @@ div.contra-registro{
 	margin: 2em;
 } 
 
+
+
+.divCol{
+
+background-color: #99437C;
+padding-right: 30px;
+padding-left: 10px;
+padding-top: 10px;
+padding-bottom: 10px;
+border-radius: 10px;
+ opacity: 0.80;
+
+
+}
+
+
+
+
 .boton{
 	border-color:#012160;
 	background-color: white;
@@ -119,8 +137,8 @@ margin: 7%;
 body{
 	margin:0;
 	color:#cbccd4;
-	background:rgb(6,62,123);
-	background-image: url("./imagenes/foto-footer1.jpg");
+	
+	background-image: url("https://escuelamarenostrum.com/wp-content/uploads/MNBS103.jpg");
 	font:600 16px/18px 'Open Sans',sans-serif;
 	background-size: cover;
 	/* background-position: 0%; */
@@ -128,6 +146,7 @@ body{
 
 
 footer{
+padding-top: 400px;
     background: #012160;
 	display:flex;
     flex-flow: row nowrap;
