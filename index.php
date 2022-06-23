@@ -120,8 +120,10 @@ value=<?php echo "$diaActual" ?>
       $getZona = "select * from zonas order by descripcion asc";
       $getZona2 = mysqli_query($con, $getZona);
       // echo  $getZona2;
-
-      while($row1 = mysqli_fetch_row($getZona2)){
+        ?>
+       <option selected disabled value="">Elija...</option>
+      <?php
+        while($row1 = mysqli_fetch_row($getZona2)){
         $id = $row1[0];
         $descripcion1 = $row1[1];
     ?>
