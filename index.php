@@ -5,6 +5,12 @@ if(isset($_GET['logout'])){
   session_destroy();
   echo '<meta http-equiv="Refresh" content="0; url=index.php">';
 }
+
+require "conexion.php";
+
+$con = mysqli_connect($servidorBD, $usuarioBD, $contraBD, $baseDatosBD) or die ("no se pudo conectar a la Base de datos");
+
+
 ?>
 
 <?php
@@ -108,37 +114,26 @@ value=<?php echo "$diaActual" ?>
     <div class="centrar">
     <!-- <form class="was-validated"> -->
     <div class="col-md-3 mb-3 mt-5 ml-5">
-      
-      
       <label >Zona </label>
- <select  class="custom-select is-invalid" id="elegir-zona" name="zona" required>
-<?php
-require "conexion.php";
-$con=mysqli_connect($servidorBD, $usuarioBD, $contraBD, $baseDatosBD) or die("no se pudo conectar a la BD");
-  $getZona = "select * from zonas order by descripcion asc";
-  $getZona2 = mysqli_query($con, $getZona);
- // echo  $getZona2;
+      <select  class="custom-select is-invalid" id="elegir-zona" name="zona" required>
+    <?php
+      $getZona = "select * from zonas order by descripcion asc";
+      $getZona2 = mysqli_query($con, $getZona);
+      // echo  $getZona2;
 
-  while($row1 = mysqli_fetch_row($getZona2))
-  {
-    $id = $row1[0];
-    $descripcion1 = $row1[1];
-  ?>
+      while($row1 = mysqli_fetch_row($getZona2)){
+        $id = $row1[0];
+        $descripcion1 = $row1[1];
+    ?>
 
   <option value = "<?php echo $id; ?>"> <?php echo $descripcion1 ?> </option>
-  
+
   <?php
   }
-  
   ?>
-
 </select><br><br>
-        
-      
-      
-    </div>
 
-    
+    </div>
     <!-- </form> -->
     </div>
 </div>
@@ -196,22 +191,29 @@ echo "Los datos ingresados son: fecha: $fecha; zona: $zona, comensales: $comensa
 ?>
 
 
+<!-- PROBANDO TRAER IMAGEN Y DATOS DE RESTO 1 -->
+<?php
+$datosResto1 = "SELECT * FROM restaurantes where id=1;"; //FUNCIONA AUNQUE SE DEBE CAMBIAR EL WHERE PARA QUE TRAIGA AUTO LOS ID REQUERIDOS Y NO SIEMPRE EL 1
+$sqlResto1 = mysqli_query($con, $datosResto1);
 
+$mostrarResto1= mysqli_fetch_assoc($sqlResto1);
+$nombreResto = $mostrarResto1['nombre'];
 
-
-
+?>
 
 <!-- tarjetas de restaurants-->
 <div class="tarjetas">
-
+<!-- TARJETA DE RESTO 1 TRAE DATOS DE BD, ÑAS DEMÁS AÚN NO -->
 <div class="card item" style="width: 18rem;">
-  <img src="./imagenes/resto1.jpg" class="card-img-top" alt="...">
+  <img class="card-img-top" src="data:<?php echo $mostrarResto1['tipoImagen']; ?>;base64,<?php echo base64_encode($mostrarResto1['imagenPrincipal']);?>">
   <div class="card-body centrar">
-    <h5 class="card-title">Don Julio</h5>
+   <?php echo "<h5 class='card-title'> $nombreResto</h5>"; ?>
     <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
     <a href="#" class="btn btn-primary">Reservar</a>
   </div>
 </div>
+
+
 
 <div class="card item" style="width: 18rem;">
   <img src="./imagenes/resto2.jpg" class="card-img-top" alt="...">
