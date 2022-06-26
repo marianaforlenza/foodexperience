@@ -93,194 +93,148 @@ $con = mysqli_connect($servidorBD, $usuarioBD, $contraBD, $baseDatosBD) or die (
 
 
 <div class="buscador">
-<form class="was-validated" action="buscarRest.php" method="post">
+  <form class="was-validated" action="buscarRest.php" method="post">
 
-<!-- calendario -->
-<?php $diaActual= date('Y-m-d');
-?>
-
-<div class="centrar ">
-<label for="fecha">Seleccione un día:</label>
-<input type="date" id="fecha" name="fecha"
-value=<?php echo "$diaActual" ?>
-       min=<?php echo "$diaActual" ?> max="2022-12-31">
-</div>
-<!-- fin calendario -->
-
-<div class="eligiendo">
-
-<!-- elegir zona -->
-<div class="alternativas centrar">
-    <div class="centrar">
-    <!-- <form class="was-validated"> -->
-    <div class="col-md-3 mb-3 mt-5 ml-5">
-      <label >Zona </label>
-      <select  class="custom-select is-invalid" id="elegir-zona" name="zona" required>
-    <?php
-      $getZona = "select * from zonas order by descripcion asc";
-      $getZona2 = mysqli_query($con, $getZona);
-      // echo  $getZona2;
-        ?>
-       <option selected disabled value="">Elija...</option>
-      <?php
-        while($row1 = mysqli_fetch_row($getZona2)){
-        $id = $row1[0];
-        $descripcion1 = $row1[1];
+    <!-- calendario -->
+    <?php $diaActual= date('Y-m-d');
     ?>
 
-  <option value = "<?php echo $id; ?>"> <?php echo $descripcion1 ?> </option>
-
-  <?php
-  }
-  ?>
-</select><br><br>
-
+    <div class="centrar ">
+      <label for="fecha">Seleccione un día:</label>
+      <input type="date" id="fecha" name="fecha"
+      value=<?php echo "$diaActual" ?>
+       min=<?php echo "$diaActual" ?> max="2022-12-31">
     </div>
-    <!-- </form> -->
-    </div>
-</div>
+    <!-- fin calendario -->
 
-<!-- elegir cantidad comensales -->
-<div class="alternativas mt-5">
-    <!-- <form class="was-validated alternativas mt-5"> -->
-        <p> Seleecione la cantidad de comensales</p>
-        <div class="custom-control custom-radio custom-control-inline">
+    <div class="eligiendo">
+
+      <!-- elegir zona -->
+      <div class="alternativas centrar">
+        <div class="centrar">
+          <!-- <form class="was-validated"> -->
+          <div class="col-md-3 mb-3 mt-5 ml-5">
+            <label >Zona </label>
+            <select  class="custom-select is-invalid" id="elegir-zona" name="zona" required>
+            <?php
+            $getZona = "select * from zonas order by descripcion asc";
+            $getZona2 = mysqli_query($con, $getZona);
+            // echo  $getZona2;
+            ?>
+            <option selected disabled value="">Elija...</option>
+            <?php
+            while($row1 = mysqli_fetch_row($getZona2)){
+            $id = $row1[0];
+            $descripcion1 = $row1[1];
+            ?>
+
+            <option value = "<?php echo $id; ?>"> <?php echo $descripcion1 ?> </option>
+
+            <?php
+            }
+            ?>
+            </select><br><br>
+
+          </div>
+          <!-- </form> -->
+        </div>
+      </div>
+
+      <!-- elegir cantidad comensales -->
+      <div class="alternativas mt-5">
+        <!-- <form class="was-validated alternativas mt-5"> -->
+          <p> Seleecione la cantidad de comensales</p>
+          <div class="custom-control custom-radio custom-control-inline">
             <input type="radio" id="customRadioInline1" name="comensales" value="1" class="custom-control-input" required>
             <label class="custom-control-label" for="customRadioInline1">1</label>
-        </div>
-        <div class="custom-control custom-radio custom-control-inline">
+          </div>
+          <div class="custom-control custom-radio custom-control-inline">
             <input type="radio" id="customRadioInline2" name="comensales" value="2" class="custom-control-input" required>
             <label class="custom-control-label" for="customRadioInline2">2</label>
-        </div>
-        <div class="custom-control custom-radio custom-control-inline">
+          </div>
+          <div class="custom-control custom-radio custom-control-inline">
             <input type="radio" id="customRadioInline3" name="comensales" value="3" class="custom-control-input" required>
             <label class="custom-control-label" for="customRadioInline3">3</label>
-        </div>
-        <div class="custom-control custom-radio custom-control-inline">
+          </div>
+          <div class="custom-control custom-radio custom-control-inline">
             <input type="radio" id="customRadioInline4" name="comensales" value="4" class="custom-control-input" required>
             <label class="custom-control-label" for="customRadioInline4">4</label>
-        </div>
-        <div class="custom-control custom-radio custom-control-inline">
+          </div>
+          <div class="custom-control custom-radio custom-control-inline">
             <input type="radio" id="customRadioInline5" name="comensales" value="5" class="custom-control-input" required>
             <label class="custom-control-label" for="customRadioInline5">5</label>
-        </div>
-        <div class="custom-control custom-radio custom-control-inline">
+          </div>
+          <div class="custom-control custom-radio custom-control-inline">
             <input type="radio" id="customRadioInline6" name="comensales" value="6" class="custom-control-input" required>
             <label class="custom-control-label" for="customRadioInline6">6</label>
-        </div>
-        <div class="invalid-feedback"> Campo obligatorio</div>
-    <!-- </form> -->
+          </div>
+          <div class="invalid-feedback"> Campo obligatorio</div>
+            <!-- </form> -->
+      </div>
+
+      <div class="centrar mb">
+        <input type="submit" class="boton centrar" value="Buscar restaurantes">
+      </div>
+  </form>
 </div>
-</div>
-<div class="centrar mb">
-<input type="submit" class="boton centrar" value="Buscar restaurantes">
-</div>
-</form>
-</div>
 
 
-<?php
 
-if(isset($_POST['busqueda'])){
-
-$fecha=$_POST['fecha'];
-$zona=$_POST['zona'];
-$comensales=$_POST['comensales'];
-
-echo "Los datos ingresados son: fecha: $fecha; zona: $zona, comensales: $comensales";
-}
-
-?>
-
-
-<!-- PROBANDO TRAER IMAGEN Y DATOS DE RESTO 1 -->
-<?php
-$datosResto1 = "SELECT * FROM restaurantes where id=1;"; //FUNCIONA AUNQUE SE DEBE CAMBIAR EL WHERE PARA QUE TRAIGA AUTO LOS ID REQUERIDOS Y NO SIEMPRE EL 1
-$sqlResto1 = mysqli_query($con, $datosResto1);
-
-$mostrarResto1= mysqli_fetch_assoc($sqlResto1);
-$nombreResto = $mostrarResto1['nombre'];
-
-?>
-
-<!-- tarjetas de restaurants-->
 <div class="tarjetas">
-<!-- TARJETA DE RESTO 1 TRAE DATOS DE BD, ÑAS DEMÁS AÚN NO -->
-<div class="card item" style="width: 18rem;">
-  <img class="card-img-top" src="data:<?php echo $mostrarResto1['tipoImagen']; ?>;base64,<?php echo base64_encode($mostrarResto1['imagenPrincipal']);?>">
-  <div class="card-body centrar">
-   <?php echo "<h5 class='card-title'> $nombreResto</h5>"; ?>
-    <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-    <a href="#" class="btn btn-primary">Reservar</a>
+
+  <?php
+  $datosRestos = "SELECT * FROM restaurantes where estado=true;";
+  $sqlRestos = mysqli_query($con, $datosRestos);
+
+  while($mostrarRestos= mysqli_fetch_assoc($sqlRestos)){
+
+  $nombreResto = $mostrarRestos['nombre'];
+
+  ?>
+  <!-- tarjetas de restaurants-->
+  <div class="card item" style="width: 18rem;">
+      <img class="card-img-top" src="data:<?php echo $mostrarRestos['tipoImagen']; ?>;base64,<?php echo base64_encode($mostrarRestos['imagenPrincipal']);?>">
+    <div class="card-body centrar">
+      <?php echo "<h5 class='card-title'> $nombreResto</h5>"; ?>
+      <a href="#" class="btn btn-primary">Reservar</a>
+    </div>
   </div>
-</div>
-
-
-
-<div class="card item" style="width: 18rem;">
-  <img src="./imagenes/resto2.jpg" class="card-img-top" alt="...">
-  <div class="card-body centrar">
-    <h5 class="card-title">Chopra</h5>
-    <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-    <a href="#" class="btn btn-primary">Reservar</a>
-  </div>
-</div>
-
-<div class="card item" style="width: 18rem;">
-  <img src="./imagenes/resto3.jpg" class="card-img-top" alt="...">
-  <div class="card-body centrar">
-    <h5 class="card-title">El charro</h5>
-    <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-    <a href="#" class="btn btn-primary">Reservar</a>
-  </div>
-</div>
-
-<div class="card item" style="width: 18rem;">
-  <img src="./imagenes/resto4.jpg" class="card-img-top" alt="...">
-  <div class="card-body centrar">
-    <h5 class="card-title">Blondies</h5>
-    <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-    <a href="#" class="btn btn-primary">Reservar</a>
-  </div>
-</div>
 </div>
   
-
+<?php
+  }
+?>
 
 
 
 
 
   <!-- footer -->
-  <footer>
-  <!-- parte izquierda -->
-  <div class="item-footer">
-    <p> </p>
-  </div>
-    <!-- parte centro -->
-  <div class="item-footer centrar">
-    <p> Hecho con <i class="bi bi-suit-heart-fill" style="font-size:0.8rem; color:red"></i></p>
-    <p> por Vale, Maru y Jair<p>
-  </div>
-  <!-- parte derecha -->
-  <div class="item-footer derecha">
-    <a href="#">
-      <i class="bi bi-github" style="font-size:2rem; color:white"></i>
+<footer>
+    <!-- parte izquierda -->
+    <div class="item-footer">
+      <p> </p>
+    </div>
+      <!-- parte centro -->
+    <div class="item-footer centrar">
+      <p> Hecho con <i class="bi bi-suit-heart-fill" style="font-size:0.8rem; color:red"></i></p>
+      <p> por Vale, Maru y Jair<p>
+    </div>
+      <!-- parte derecha -->
+    <div class="item-footer derecha">
+      <a href="#">
+        <i class="bi bi-github" style="font-size:2rem; color:white"></i>
+        </a>
+      <a href="">
+        <i class="bi bi-whatsapp" style="font-size:2rem; color:green"></i>
       </a>
-    <a href="">
-      <i class="bi bi-whatsapp" style="font-size:2rem; color:green"></i>
-    </a>
-    <a href="#">
-      <i class="bi bi-envelope" style="font-size:2rem; color:black"></i>
-    </a>
-  </div>
+      <a href="#">
+        <i class="bi bi-envelope" style="font-size:2rem; color:black"></i>
+      </a>
+    </div>
 
-  </footer>
+</footer>
   
-  
-  
-
-
 
 
 <!-- js bootstrap -->

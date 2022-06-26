@@ -24,11 +24,9 @@ if($_POST['email']==""){
 
  $con = mysqli_connect($servidorBD, $usuarioBD, $contraBD, $baseDatosBD) or die ("no se pudo conectar a la Base de datos");
 //  comprobando si el email ya está en uso
- $sqlVerifica="select * from usuarios where usu_email='$email';";
+ $sqlVerifica="select * from usuarios where email='$email';";
 
  $resultadoset=mysqli_query($con, $sqlVerifica);
-
-
 ?>
 
 <!-- hacer un  if para comparar contra 1 y contra 2 -->
@@ -76,7 +74,7 @@ if(mysqli_affected_rows($con)>0){
     }
     // si no está en uso
     else{
-        $sql= "INSERT into usuarios (usu_nombre,usu_apellido,usu_email,usu_contra,usu_cel)
+        $sql= "INSERT into usuarios (nombre, apellido, email, contra, cel)
         values ('$nombre','$apellido','$email','$contra','$tel');";
 
         $resulset= mysqli_query($con,$sql);

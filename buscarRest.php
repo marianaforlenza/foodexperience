@@ -85,125 +85,114 @@ if(isset($_GET['logout'])){
 </header>
 
 
-
-
-
-<body>
-
-
-
-
-<form method=POST>
-
-
     
-<?php
+  <?php
    
-   $fecha=$_POST['fecha'];
-   $zona=$_POST['zona'];
-   $comensales=$_POST['comensales'];
+  $fecha=$_POST['fecha'];
+  $zona=$_POST['zona'];
+  $comensales=$_POST['comensales'];
    
    
-   // echo "La fecha seleccionada es $fecha<br>";
-    //echo "La zona seleccionada es $zona<br>";
-    //echo "Los comensales seleccionados son $comensales<br>";
+  // echo "La fecha seleccionada es $fecha<br>";
+  //echo "La zona seleccionada es $zona<br>";
+  //echo "Los comensales seleccionados son $comensales<br>";
     
-    require "conexion.php";
+  require "conexion.php";
     
-    $con=mysqli_connect($servidorBD, $usuarioBD, $contraBD, $baseDatosBD) or die("no se pudo conectar a la BD");
+  $con=mysqli_connect($servidorBD, $usuarioBD, $contraBD, $baseDatosBD) or die("no se pudo conectar a la BD");
  
      
-    $sqlBuscarRest="select * from restaurantes INNER join disponibilidad where disponibilidad.fecha='$fecha' and  disponibilidad.cant_comensales >= $comensales and restaurantes.zon_id = $zona and disponibilidad.estado = false";
+  $sqlBuscarRest="SELECT restaurantes.id, restaurantes.nombre, restaurantes.imagenPrincipal, restaurantes.tipoImagen, disponibilidad.idMesa
+                  from restaurantes 
+                  INNER join disponibilidad
+                  WHERE disponibilidad.fecha='$fecha' and 
+                  disponibilidad.cant_comensales = $comensales and
+                  restaurantes.zon_id = $zona and
+                  disponibilidad.estado = false and
+                  restaurantes.estado = true and
+                  disponibilidad.idMesa = (SELECT MIN(disponibilidad.idMesa) FROM disponibilidad) and
+                  restaurantes.id = disponibilidad.res_id;";
 
-    $resultRest=mysqli_query($con,$sqlBuscarRest);
+  $resultRest=mysqli_query($con, $sqlBuscarRest);
 
-    if(mysqli_affected_rows($con)>0){
-       // echo "Se encontro el rest<br><br>";
-    }
-    else{
-        echo "<h3>No se encontró producto con el código $codigoBuscado<h3><br><br>";
-        
-           }
-           
-      ?> 
-      
-      <div class="divCol">
-      
+  if(mysqli_affected_rows($con)>0){
+    // echo "Se encontro el rest<br><br>";
+
+    while($row = mysqli_fetch_row($resultRest)){
+      ?>
+
+      <div class="tarjetas">
+
+        <?php
+        $nombreResto = $row[1];
+        ?>
+        <!-- tarjetas de restaurants-->
+        <div class="card item" style="width: 18rem;">
+          <img class="card-img-top" src="data:<?php echo $row[3]; ?>;base64,<?php echo base64_encode($row[2]);?>">
+          <div class="card-body centrar">
+            <?php echo "<h5 class='card-title'> $nombreResto</h5>"; ?>
+            <a href="#" class="btn btn-primary">Reservar</a>
+          </div>
+        </div>
+      </div>
       
       <?php
-           
-           
-    while($row = mysqli_fetch_row($resultRest)){
-        ?>
-        
-        <!-- <input type=radio name=selec value=<?php echo $row[0]?>> -->
-        
-        <div class="divCol">
-        
-        <!-- Columna Nombre rest -->
-        
-        <label>Nombre del Resturant:  </label><inpunt><?php echo $row[1]?></input> <br>
-        
-        <!-- Columna Direccion -->
-        <label>Direccion:  </label><inpunt><?php echo $row[2]?></input> <br>
-        
-        
-        <!-- Telefono-->
-        <label>Telefono:  </label><inpunt><?php echo $row[3]?></input> <br>
-        
-        <!-- Numero de Mesa -->
-        <label>Numero de Mesa:  </label><inpunt><?php echo $row[8]?></input> <br>
-        
-        <!-- Fecha -->
-        <label>Fecha:  </label><inpunt><?php echo $row[9]?></input> <br>
-        
-         <!-- Cantidad de comensales -->
-        <label>Cantidad de Comensales: </label><inpunt><?php echo $row[10]?></input> <br>
-           </div>     
-        
-    <?php
-    }
-    ?> 
+      }
+  }
+  else{
+        $comensales++;
+        $comensales2 = $comensales;
+
+        $conn=mysqli_connect($servidorBD, $usuarioBD, $contraBD, $baseDatosBD) or die("no se pudo conectar a la BD");
 
 
- </div>     
-        
+        $sqlBuscarRest2="SELECT restaurantes.id, restaurantes.nombre, restaurantes.imagenPrincipal, restaurantes.tipoImagen, disponibilidad.idMesa
+                  from restaurantes 
+                  INNER join disponibilidad
+                  WHERE disponibilidad.fecha='$fecha' and 
+                  disponibilidad.cant_comensales = $comensales2 and
+                  restaurantes.zon_id = $zona and
+                  disponibilidad.estado = false and
+                  restaurantes.estado = true and
+                  restaurantes.id = disponibilidad.res_id;";
+
+        $resultRest2=mysqli_query($conn, $sqlBuscarRest2);
+         
+        if(mysqli_affected_rows($conn)>0){
 
 
+        while($row2 = mysqli_fetch_row($resultRest2)){
+          ?>
+          
+        <div class="tarjetas">
 
-</body>
+          <?php
+          $nombreResto = $row2[1];
+          ?>
+          <!-- tarjetas de restaurants-->
+          <div class="card item" style="width: 18rem;">
+            <img class="card-img-top" src="data:<?php echo $row2[3]; ?>;base64,<?php echo base64_encode($row2[2]);?>">
+            <div class="card-body centrar">
+              <?php echo "<h5 class='card-title'> $nombreResto</h5>"; ?>
+              <a href="#" class="btn btn-primary">Reservar</a>
+            </div>
+          </div>
+        </div>
+          
+          <?php
+          }
 
+      }
+      else{
 
+      echo "<h3>No se encontró ningún restaurante<h3><br><br>";
+      }
 
-  <!-- footer -->
-  <footer>
-  <!-- parte izquierda -->
-  <div class="item-footer">
-    <p> </p>
-  </div>
-    <!-- parte centro -->
-  <div class="item-footer centrar">
-    <p> Hecho con <i class="bi bi-suit-heart-fill" style="font-size:0.8rem; color:red"></i></p>
-    <p> por Vale, Maru y Jair<p>
-  </div>
-  <!-- parte derecha -->
-  <div class="item-footer derecha">
-    <a href="#">
-      <i class="bi bi-github" style="font-size:2rem; color:white"></i>
-      </a>
-    <a href="">
-      <i class="bi bi-whatsapp" style="font-size:2rem; color:green"></i>
-    </a>
-    <a href="#">
-      <i class="bi bi-envelope" style="font-size:2rem; color:black"></i>
-    </a>
-  </div>
-
-  </footer>
+      }
   
+  ?> 
+         
   
-  
-
 
 
 
