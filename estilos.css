@@ -26,7 +26,15 @@ div.titulo{
     font-size: 2rem;
 	margin-left: 10rem;
 }
+.fotoAchi{
 
+opacity: 0;
+width: 225px;
+height: 25px;
+
+
+
+}
 
 div.loguearse{
     flex: 1 1 30%;
