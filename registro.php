@@ -13,20 +13,18 @@ $contra2=$_POST['contra2'];
 $tel=$_POST['tel'];
 
 // por si alguien ingresa a esta url desde la barra de navegación
-if($_POST['email']==""){
-    echo "ACCESO NO AUTORIZADO";
-    echo '<meta http-equiv="Refresh" content="0; url=index.php">';
-    exit();
-}
+//if($_POST['email']==""){
+  //  echo "ACCESO NO AUTORIZADO";
+  //  echo '<meta http-equiv="Refresh" content="0; url=index.php">';
+  //  exit();
+//}
 
 //echo $email;
 
 
- $con = mysqli_connect($servidorBD, $usuarioBD, $contraBD, $baseDatosBD) or die ("no se pudo conectar a la Base de datos");
-//  comprobando si el email ya está en uso
- $sqlVerifica="select * from usuarios where email='$email';";
 
- $resultadoset=mysqli_query($con, $sqlVerifica);
+
+
 ?>
 
 <!-- hacer un  if para comparar contra 1 y contra 2 -->
@@ -64,8 +62,22 @@ if($_POST['email']==""){
 
 
 <?php
+ $con = mysqli_connect($servidorBD, $usuarioBD, $contraBD, $baseDatosBD) or die ("no se pudo conectar a la Base de datos");
+//  comprobando si el email ya está en uso
+ $sqlVerifica="select * from usuarios where email='$email';";
+
+ $resultadoset=mysqli_query($con, $sqlVerifica);
+ 
+
+$registro=mysqli_fetch_assoc($resultadoset);
+ 
+ 
 // mensaje si el mail ya está en uso
-if(mysqli_affected_rows($con)>0){
+if($registro['email'] == $email){
+
+
+
+
     echo "<h3 class='centrar mt-3'> El correo electrónico <?php echo $email ?> ya está en uso. <h3>";
     echo "<br><h3 class='centrar'> Intente con otro.<h3>";
     ?>
@@ -74,10 +86,13 @@ if(mysqli_affected_rows($con)>0){
     }
     // si no está en uso
     else{
-        $sql= "INSERT into usuarios (nombre, apellido, email, contra, cel)
+        $sql= "INSERT into usuarios (nombre,apellido,email,contra,cel)
         values ('$nombre','$apellido','$email','$contra','$tel');";
+        echo"entre en el else";
+ 
 
         $resulset= mysqli_query($con,$sql);
+        
 
         if (mysqli_affected_rows ($con)>0){
 
@@ -97,8 +112,8 @@ if(mysqli_affected_rows($con)>0){
             <meta http-equiv="Refresh" content="2; url=index.php">  
                 
             <?php 
-            }       
-    }
+            }     }  
+    
 ?>
 
 
