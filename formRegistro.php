@@ -74,9 +74,9 @@ else{   //si aún no inició sesión
 </div>
     
     <!-- registro -->
-    <form class="was-validated formu-registro mb-5" action="registro.php" method="post" id="miformulario" onsubmit="verificarPasswords(); return false">
+    <form class="was-validated formu-registro mb-5" action="registro.php" method="post">
     <div class="login-wrap">
-       <!-- <div class="login-html">
+        <!-- <div class="login-html">
             <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Registrarse</label>
             <div class="login-form"> -->
                
@@ -96,60 +96,24 @@ else{   //si aún no inició sesión
                     </div>
                     <div class="group input-group is-invalid">
                         <label for="pass" class="label">Contraseña</label>
-                        <input id="pass1" type="password" class="input form-control is-invalid" aria-describedby="validatedInputGroupPrepend" minlength="4" maxlength="45" title="La contraseña debe tener entre 4 y 45 caracteres" required data-type="password"name="contra">
+                        <input id="pass" type="password" class="input form-control is-invalid" aria-describedby="validatedInputGroupPrepend" minlength="4" maxlength="45" title="La contraseña debe tener entre 4 y 45 caracteres" required data-type="password"name="contra">
                     </div>
                     <div class="group input-group is-invalid">
                         <label for="pass" class="label">Repeti Contraseña</label>
-                        <input id="pass2" type="password" class="input form-control is-invalid" aria-describedby="validatedInputGroupPrepend" minlength="4" maxlength="45" title="La contraseña debe tener entre 4 y 45 caracteres" required data-type="password" name="contra2">
+                        <input id="pass" type="password" class="input form-control is-invalid" aria-describedby="validatedInputGroupPrepend" minlength="4" maxlength="45" title="La contraseña debe tener entre 4 y 45 caracteres" required data-type="password" name="contra2">
                     </div>
                     <div class="group input-group is-invalid">
                         <label for="pass" class="label">Telefono</label>
                         <input id="pass" type="text" class="input form-control is-invalid" aria-describedby="validatedInputGroupPrepend" pattern="[0-9]{6,15}"  title="Solo números. Tamaño mínimo: 6, máximo: 15" required name="tel">
                     </div>
                     <div class="group input-group is-invalid">
-                        <input type="submit" class="button" value="Registrarse" onClick="comprobarClave()">
+                        <input type="submit" class="button" value="Registrarse">
                     </div>
                 </div>
             </div>
         </div>
     </div>
     </form>
-
-
-<script>
-
-function verificarPasswords() {
- 
-    // Ontenemos los valores de los campos de contraseñas 
-    pass1 = document.getElementById('pass1');
-    pass2 = document.getElementById('pass2');
- 
-    // Verificamos si las constraseñas no coinciden 
-    if (pass1.value != pass2.value) {
- 
-        // Si las constraseñas no coinciden mostramos un mensaje 
-        alert ("Las contraseñas no coinciden");  
-        miformulario.pass1.value = "";
-        miformulario.pass2.value = "";
- 
-        return false;
-    } else {
- 
-       
-       
-      document.getElementById("login").disabled = true;
-      
- 
-         setTimeout(function() {
-    location.reload();
-    }, 3000);
-        
-        return true;
-    }
- 
-}
-
-</script>
 
 
 

@@ -179,48 +179,49 @@ $con = mysqli_connect($servidorBD, $usuarioBD, $contraBD, $baseDatosBD) or die (
 </div>
 
 
-
-<div class="tarjetas">
-
-  <?php
-  $datosRestos = "SELECT * FROM restaurantes where estado=true;";
-  $sqlRestos = mysqli_query($con, $datosRestos);
-
-  while($mostrarRestos= mysqli_fetch_assoc($sqlRestos)){
-
-  $nombreResto = $mostrarRestos['nombre'];
-
-  ?>
-  <!-- tarjetas de restaurants-->
-  <div class="card item" style="width: 18rem;">
-      <img class="card-img-top" src="data:<?php echo $mostrarRestos['tipoImagen']; ?>;base64,<?php echo base64_encode($mostrarRestos['imagenPrincipal']);?>">
-    <div class="card-body centrar">
-      <?php echo "<h5 class='card-title'> $nombreResto</h5>"; ?>
-      <a href="#" class="btn btn-primary">Reservar</a>
+<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="./imagenes/resto1.jpg" class="d-block w-100" width="600px" height="560px" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="./imagenes/resto2.jpg" class="d-block w-100" width="600px" height="560px" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="./imagenes/resto3.jpg" class="d-block w-100" width="600px" height="560px" alt="...">
     </div>
   </div>
+ <button class="carousel-control-prev" type="button" data-target="#carouselExampleControls" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-target="#carouselExampleControls" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </button>
 </div>
-  
-<?php
-  }
-?>
+
+
+
+  <!-- tarjetas de restaurants-->
 
 
 
 
 
-  <!-- footer -->
+
+  <!-- footer
 <footer>
-    <!-- parte izquierda -->
+    PARTE IZQUIERDA
     <div class="item-footer">
       <p> </p>
     </div>
-      <!-- parte centro -->
+    PARTE CENTRO
     <div class="item-footer centrar">
       <p> Hecho con <i class="bi bi-suit-heart-fill" style="font-size:0.8rem; color:red"></i></p>
       <p> por Vale, Maru y Jair<p>
     </div>
-      <!-- parte derecha -->
+    PARTE DERECHA
     <div class="item-footer derecha">
       <a href="#">
         <i class="bi bi-github" style="font-size:2rem; color:white"></i>
@@ -234,7 +235,7 @@ $con = mysqli_connect($servidorBD, $usuarioBD, $contraBD, $baseDatosBD) or die (
     </div>
 
 </footer>
-  
+   -->
 
 
 <!-- js bootstrap -->

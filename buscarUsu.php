@@ -15,7 +15,7 @@ if($_POST['mail']==""){
 $con=mysqli_connect($servidorBD, $usuarioBD,$contraBD,$baseDatosBD) or die ("no se puede conectar a la base de datos");
 
 
-$sqlVerifica="select * from usuarios where usu_email='$mail';";
+$sqlVerifica="select * from usuarios where email='$mail';";
 
 $resulset=mysqli_query($con, $sqlVerifica);
 
@@ -56,12 +56,12 @@ $registro=mysqli_fetch_assoc($resulset);
 if(mysqli_affected_rows($con)>0){
     //echo "<br><br><h3 class='centrar'> Se encontró el usuario <h3>";
 
-    $usu=$registro['usu_email'];
-    $contras= $registro['usu_contra'];
-    $nomyape= $registro['usu_nombre']." ".$registro['usu_apellido'];
-    $id= $registro['usu_id'];
+    $usu=$registro['email'];
+    $contras= $registro['contra'];
+    $nomyape= $registro['nombre']." ".$registro['apellido'];
+    $id= $registro['id'];
     //verifico pass
-    if($registro['usu_contra']==$contra){
+    if($registro['contra']==$contra){
         session_start();
         ?>
         <div>

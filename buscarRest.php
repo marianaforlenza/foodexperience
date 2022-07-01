@@ -85,129 +85,186 @@ if(isset($_GET['logout'])){
 </header>
 
 
-
-
-
-<body>
-
-
-
-
-<form method=POST>
-
+<!-- botón Volver -->
+<div class="derecha mt-3">
+    <a href="index.php">
+        <i class="bi bi-house-fill" style="font-size:2rem; color: rgb(199, 198, 255)"></i>
+    </a>
+</div>
 
     
-<?php
+  <?php
    
-   $fecha=$_POST['fecha'];
-   $zona=$_POST['zona'];
-   $comensales=$_POST['comensales'];
+  $fecha=$_POST['fecha'];
+  $zona=$_POST['zona'];
+  $comensales=$_POST['comensales'];
    
    
-   // echo "La fecha seleccionada es $fecha<br>";
-    //echo "La zona seleccionada es $zona<br>";
-    //echo "Los comensales seleccionados son $comensales<br>";
+  // echo "La fecha seleccionada es $fecha<br>";
+  //echo "La zona seleccionada es $zona<br>";
+  //echo "Los comensales seleccionados son $comensales<br>";
     
-    require "conexion.php";
+  require "conexion.php";
     
-    $con=mysqli_connect($servidorBD, $usuarioBD, $contraBD, $baseDatosBD) or die("no se pudo conectar a la BD");
+  $con=mysqli_connect($servidorBD, $usuarioBD, $contraBD, $baseDatosBD) or die("no se pudo conectar a la BD");
  
      
-    $sqlBuscarRest="select * from restaurantes INNER join disponibilidad where disponibilidad.fecha='$fecha' and  disponibilidad.cant_comensales >= $comensales and restaurantes.zon_id = $zona and disponibilidad.estado = false";
+  $sqlBuscarRest="SELECT restaurantes.id, restaurantes.nombre, restaurantes.imagenPrincipal, restaurantes.tipoImagen, disponibilidad.idMesa
+                  from restaurantes 
+                  INNER join disponibilidad
+                  WHERE disponibilidad.fecha='$fecha' and 
+                  disponibilidad.cant_comensales = $comensales and
+                  restaurantes.zon_id = $zona and
+                  disponibilidad.estado = false and
+                  restaurantes.estado = true and
+                  disponibilidad.idMesa = (SELECT MIN(disponibilidad.idMesa) FROM disponibilidad) and
+                  restaurantes.id = disponibilidad.res_id;";
 
-    $resultRest=mysqli_query($con,$sqlBuscarRest);
+  $resultRest=mysqli_query($con, $sqlBuscarRest);
 
-    if(mysqli_affected_rows($con)>0){
-       // echo "Se encontro el rest<br><br>";
-    }
-    else{
-        echo "<h3>No se encontró disponibilidad con los datos ingresados<h3><br><br>";
-        
-           }
-           
-      ?> 
-      
-      <div class="divCol">
-      
+  if(mysqli_affected_rows($con)>0){
+    // echo "Se encontro el rest<br><br>";
+
+    while($row = mysqli_fetch_row($resultRest)){
+      ?>
+
+      <div class="tarjetas">
+
+        <?php
+        $nombreResto = $row[1];
+        $idResto= $row[0];
+        $mesa=$row[4];
+        ?>
+        <!-- tarjetas de restaurants-->
+        <form action="restaurantes.php" method="POST" enctype="multipart/form-data">
+        <div class="card item" style="width: 18rem;">
+          <img class="card-img-top" src="data:<?php echo $row[3]; ?>;base64,<?php echo base64_encode($row[2]);?>">
+          <div class="card-body centrar">
+            <input type=hidden name=idResto value=<?php echo $idResto ?>>
+            <input type=hidden name=fecha value=<?php echo $fecha ?>>
+            <input type=hidden name=comensales value=<?php echo $comensales ?>>
+            <input type=hidden name=mesa value=<?php echo $mesa ?>>
+            <?php echo "<h5 class='card-title'> $nombreResto</h5>"; ?>
+            <button name="submit" class="btn btn-primary">Reservar</button>
+          </div>
+        </div>
+        </form>
+      </div>
       
       <?php
-           
-           
-    while($row = mysqli_fetch_row($resultRest)){
-        ?>
-        
-        <!-- <input type=radio name=selec value=<?php echo $row[0]?>> -->
-        
-        <div class="divCol">
-        
-          <!-- Columna Foto rest -->
-        
-        <inpunt> <img src="<?php echo $row[7]?>" class="fotoAchi" alt="..."> </input> <br>
-        
-        <!-- Columna Nombre rest -->
-        
-        <label>Nombre del Resturant:  </label><inpunt><?php echo $row[1]?></input> <br>
-        
-        <!-- Columna Direccion -->
-        <label>Direccion:  </label><inpunt><?php echo $row[2]?></input> <br>
-        
-        
-        <!-- Telefono-->
-        <label>Telefono:  </label><inpunt><?php echo $row[3]?></input> <br>
-        
-        <!-- Numero de Mesa -->
-        <label>Numero de Mesa:  </label><inpunt><?php echo $row[10]?></input> <br>
-        
-        <!-- Fecha -->
-        <label>Fecha:  </label><inpunt><?php echo $row[11]?></input> <br>
-        
-         <!-- Cantidad de comensales -->
-        <label>Cantidad de Comensales:  </label><inpunt><?php echo $row[12]?></input> <br>
-           </div>     
-        
-    <?php
+      }
+  }
+  else{
+
+    $conn1=mysqli_connect($servidorBD, $usuarioBD, $contraBD, $baseDatosBD) or die("no se pudo conectar a la BD");
+
+
+    $sqlBuscarRest1="SELECT restaurantes.id, restaurantes.nombre, restaurantes.imagenPrincipal, restaurantes.tipoImagen, disponibilidad.idMesa
+              from restaurantes 
+              INNER join disponibilidad
+              WHERE disponibilidad.fecha='$fecha' and 
+              disponibilidad.cant_comensales = $comensales and
+              restaurantes.zon_id = $zona and
+              disponibilidad.estado = false and
+              restaurantes.estado = true and
+              restaurantes.id = disponibilidad.res_id;";
+
+      $resultRest1=mysqli_query($conn1, $sqlBuscarRest1);
+         
+      if(mysqli_affected_rows($conn1)>0){
+
+          while($row1 = mysqli_fetch_row($resultRest1)){
+            ?>
+      
+            <div class="tarjetas">
+      
+              <?php
+              $nombreResto1 = $row1[1];
+              $idResto1= $row1[0];
+              $mesa1=$row1[4];
+              ?>
+              <!-- tarjetas de restaurants-->
+              <form action="restaurantes.php" method="POST" enctype="multipart/form-data">
+              <div class="card item" style="width: 18rem;">
+                <img class="card-img-top" src="data:<?php echo $row1[3]; ?>;base64,<?php echo base64_encode($row1[2]);?>">
+                <div class="card-body centrar">
+                  <input type=hidden name=idResto value=<?php echo $idResto1 ?>>
+                  <input type=hidden name=fecha value=<?php echo $fecha ?>>
+                  <input type=hidden name=comensales value=<?php echo $comensales ?>>
+                  <input type=hidden name=mesa value=<?php echo $mesa1 ?>>
+                  <?php echo "<h5 class='card-title'> $nombreResto1</h5>"; ?>
+                  <button name="submit" class="btn btn-primary">Reservar</button>
+                </div>
+              </div>
+              </form>
+            </div>
+            
+            <?php
+          }
+        }
+          
+      else{
+          
+
+        $comensales++;
+        $comensales2 = $comensales;
+
+        $conn=mysqli_connect($servidorBD, $usuarioBD, $contraBD, $baseDatosBD) or die("no se pudo conectar a la BD");
+
+
+        $sqlBuscarRest2="SELECT restaurantes.id, restaurantes.nombre, restaurantes.imagenPrincipal, restaurantes.tipoImagen, disponibilidad.idMesa
+                  from restaurantes 
+                  INNER join disponibilidad
+                  WHERE disponibilidad.fecha='$fecha' and 
+                  disponibilidad.cant_comensales = $comensales2 and
+                  restaurantes.zon_id = $zona and
+                  disponibilidad.estado = false and
+                  restaurantes.estado = true and
+                  restaurantes.id = disponibilidad.res_id;";
+
+        $resultRest2=mysqli_query($conn, $sqlBuscarRest2);
+         
+        if(mysqli_affected_rows($conn)>0){
+
+        while($row2 = mysqli_fetch_row($resultRest2)){
+          ?>
+          <?php
+          $nombreResto = $row2[1];
+          $idResto= $row2[0];
+          $mesa=$row2[4];
+          ?>
+
+        <div class="tarjetas">
+          <!-- tarjetas de restaurants-->
+          <form action="restaurantes.php" method="POST" enctype="multipart/form-data">
+          <div class="card item" style="width: 18rem;">
+            <img class="card-img-top" src="data:<?php echo $row2[3]; ?>;base64,<?php echo base64_encode($row2[2]);?>">
+            <div class="card-body centrar">
+              <input type="hidden" name="idResto" value="<?php echo $idResto ?>">
+              <input type=hidden name=fecha value=<?php echo $fecha ?>>
+              <input type=hidden name=comensales value=<?php echo $comensales2 ?>>
+              <input type=hidden name=mesa value=<?php echo $mesa ?>>
+              <?php echo "<h5 class='card-title'> $nombreResto</h5>";?>
+              <button name="submit" class="btn btn-primary">Reservar</button>
+            </div>
+          </div>
+          </form>
+        </div>
+          
+          <?php
+          }
+
+      }
+      else{
+
+      echo "<h3>No se encontró ningún restaurante<h3><br><br>";
+      }
+
     }
-    ?> 
-
-
- </div>     
-        
-
-
-
-</body>
-
-
-
-  <!-- footer -->
-  <footer>
-  <!-- parte izquierda -->
-  <div class="item-footer">
-    <p> </p>
-  </div>
-    <!-- parte centro -->
-  <div class="item-footer centrar">
-    <p> Hecho con <i class="bi bi-suit-heart-fill" style="font-size:0.8rem; color:red"></i></p>
-    <p> por Vale, Maru y Jair<p>
-  </div>
-  <!-- parte derecha -->
-  <div class="item-footer derecha">
-    <a href="#">
-      <i class="bi bi-github" style="font-size:2rem; color:white"></i>
-      </a>
-    <a href="">
-      <i class="bi bi-whatsapp" style="font-size:2rem; color:green"></i>
-    </a>
-    <a href="#">
-      <i class="bi bi-envelope" style="font-size:2rem; color:black"></i>
-    </a>
-  </div>
-
-  </footer>
+  }
+  ?> 
+         
   
-  
-  
-
 
 
 
