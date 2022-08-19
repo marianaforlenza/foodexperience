@@ -31,55 +31,52 @@ $registro=mysqli_fetch_assoc($resulset);
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Food Experience - Registro</title>
 
-   <link rel="stylesheet" href="estilos.css">
+    <!-- css bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+    integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="cssGrid.css">
+
 </head>
 <body>
    
-<!-- header -->
-<header >
-    <!-- logo izq -->
-    <div class="logo">
-        <img src="./imagenes/logo.png">
-    </div>
-    <!-- título central -->
-    <div class="titulo">
-        <h1 class="centrar">Food Experience</h1>
-    </div>
-    <!-- loggin -->
-    <div class="loguearse">
-        <p> </P>
-    </div>
-</header>
+<?php
+require "./layout/header.php";
+?>
+
 
 <?php
 
 if(mysqli_affected_rows($con)>0){
-    //echo "<br><br><h3 class='centrar'> Se encontró el usuario <h3>";
 
     $usu=$registro['email'];
     $contras= $registro['contra'];
     $nomyape= $registro['nombre']." ".$registro['apellido'];
-    $id= $registro['id'];
+    $idUsuario= $registro['id'];
+    $rol= $registro['rol_id'];
     //verifico pass
     if($registro['contra']==$contra){
         session_start();
         ?>
         <div>
-        <h3 class='centrar mt-3'> Iniciando sesión <h3>
+        <h3 class='centrar mt-3 textoPrinc'> Iniciando sesión <h3>
         </div>
         <?php
         //cargar variables de sesion
         $_SESSION['usu_mail']=$usu;
-        $_SESSION['nombre_completo']=$nomyape;  
+        $_SESSION['nombre_completo']=$nomyape;
+        $_SESSION['idUsuario']= $idUsuario;
+        $_SESSION['rol'] = $rol;
         ?>
-    <meta http-equiv="Refresh" content="2; url=index.php">
+    <meta http-equiv="Refresh" content="0; url=index.php">
 
 <?php
     }
     else{
     ?>
     <div>
-        <h3 class='centrar mt-3'> La contraseña es incorrecta <h3>
+        <h3 class='centrar mt-3 textoPrinc'> La contraseña es incorrecta <h3>
     </div>
     <?php
         echo '<meta http-equiv="Refresh" content="2; url=index.php">';
@@ -89,7 +86,7 @@ if(mysqli_affected_rows($con)>0){
 else{
     ?>
     <div>
-    <h3 class='centrar mt-3'> No existe el usuario <?php echo $mail ?> <h3>
+    <h3 class='centrar mt-3 textoPrinc'> No existe el usuario <?php echo $mail ?> <h3>
     </div>
     <?php
     echo '<meta http-equiv="Refresh" content="2; url=index.php">';
@@ -97,33 +94,10 @@ else{
 
 ?>
 
-<!-- footer -->
-<footer>
-  <!-- parte izquierda -->
-  <div class="item-footer">
-    <p> </p>
-  </div>
-    <!-- parte centro -->
-  <div class="item-footer centrar">
-    <p> Hecho con <i class="bi bi-suit-heart-fill" style="font-size:0.8rem; color:red"></i></p>
-    <p> por Vale, Maru y Jair<p>
-  </div>
-  <!-- parte derecha -->
-  <div class="item-footer derecha">
-    <a href="#">
-      <i class="bi bi-github" style="font-size:2rem; color:white"></i>
-      </a>
-    <a href="">
-      <i class="bi bi-whatsapp" style="font-size:2rem; color:green"></i>
-    </a>
-    <a href="#">
-      <i class="bi bi-envelope" style="font-size:2rem; color:black"></i>
-    </a>
-  </div>
 
-  </footer>
-
-
+<?php
+require "./layout/footer.php";
+?>
 
 
 </body>

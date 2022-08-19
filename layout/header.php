@@ -16,8 +16,9 @@
       if(isset($_SESSION['usu_mail'])){
         $nombreCompleto= $_SESSION['nombre_completo'];
         $idUsuario = $_SESSION['idUsuario'];
+        $rol = $_SESSION['rol'];
         ?>
-        <div class="mr-3">
+        <div class="mr-5">
           <div>
             <p>¡Hola <?php echo $nombreCompleto?>!</p>
           </div>
@@ -26,12 +27,29 @@
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
               Opciones
             </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <?php //SI SOY ADMINISTRADOR
+            if($rol==1){ ?>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <a class="dropdown-item" href="misReservas.php">Mis Reservas</a>
-              <a class="dropdown-item" href="#">Mis Opiniones</a>
+              <a class="dropdown-item" href="misOpiniones.php">Mis Opiniones</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="listaReservas.php">Lista Reservas</a>
+              <a class="dropdown-item" href="usuarios.php">Usuarios</a>
+              <a class="dropdown-item" href="listaRestaurantes.php">Restaurantes</a>
+              <a class="dropdown-item" href="diasCalendario.php">Agregar fechas</a>              
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="index.php?logout">Cerrar Sesión</a>
             </div>
+            <?php
+            }else{
+            ?>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="misReservas.php">Mis Reservas</a>
+              <a class="dropdown-item" href="misOpiniones.php">Mis Opiniones</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="index.php?logout">Cerrar Sesión</a>
+            </div>
+            <?php } ?>
           </div>
         </div>
         <?php
@@ -48,7 +66,7 @@
           </div>
           <div class="olvide-registro">
             <div class="mr-5">   <!-- olvidé mi contraseña -->
-              <a href=""> Olvidé mi contraseña </a>
+              <a href="recuperarPassword.php"> Olvidé mi contraseña </a>
             </div>
             <div>   <!-- botón Registrarse -->
               <form action="formRegistro.php">

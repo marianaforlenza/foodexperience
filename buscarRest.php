@@ -27,6 +27,7 @@ if(isset($_GET['logout'])){
     <link rel="stylesheet" href="cssGrid.css">
 
 </head>
+
 <body>
 
 <?php
@@ -39,7 +40,8 @@ require "./layout/header.php";
     <!-- botón Volver -->
     <div class="derecha mt-3 boton-volver">
         <a href="index.php">
-            <i class="bi bi-house-fill" style="font-size:2rem; color: rgb(78, 76, 196)"></i>
+          <p>Volver <i class="bi bi-house-fill" style="font-size:2rem; color: rgb(78, 76, 196)"></i></p>
+            
         </a>
     </div>
 
@@ -52,7 +54,9 @@ require "./layout/header.php";
     require "conexion.php";
     $con=mysqli_connect($servidorBD, $usuarioBD, $contraBD, $baseDatosBD) or die("no se pudo conectar a la BD");
 
-    if($cat == 0){
+    
+
+    if($cat == 0){    //viendo si se eligió categoria
 
       $sqlBuscarRest="SELECT restaurantes.id, restaurantes.nombre, restaurantes.imagenPrincipal, restaurantes.tipoImagen, disponibilidad.idMesa
                       from restaurantes 
@@ -76,7 +80,11 @@ require "./layout/header.php";
             $nombreResto = $row[1];
             $idResto= $row[0];
             $mesa=$row[4];
-            ?>
+            // trayendo datos para mostrar promedio
+            $getProm = "SELECT AVG(punt_valor) FROM calificaciones WHERE rest_id=$idResto;";
+            $resultProm=mysqli_query($con, $getProm);
+            $verProm=mysqli_fetch_array($resultProm);
+            $promedio=$verProm[0]; ?>
             <!-- tarjetas de restaurants-->
             <form action="restaurantes.php" method="POST" enctype="multipart/form-data">
               <div class="card item m-5 tarjetas-fondo" style="width: 700px">
@@ -86,7 +94,7 @@ require "./layout/header.php";
                   <input type=hidden name=fecha value=<?php echo $fecha ?>>
                   <input type=hidden name=comensales value=<?php echo $comensales ?>>
                   <input type=hidden name=mesa value=<?php echo $mesa ?>>
-                  <?php echo "<h5 class='card-title'> $nombreResto</h5>"; ?>
+                  <h5 class='card-title'> <?php echo $nombreResto . " ". number_format($promedio, 1)?> <span class="estrella-color">&#9733 </span> </h5>
                   <button name="submit" class="btn btn-primary"> Reservar </button>
                 </div>
               </div>
@@ -99,7 +107,7 @@ require "./layout/header.php";
         echo "No hay restaurantes disponibles para esa búsqueda";
       }
 
-    }else{
+    }else{    //sin elegir categoria
       $sqlBuscarRest="SELECT restaurantes.id, restaurantes.nombre, restaurantes.imagenPrincipal, restaurantes.tipoImagen, disponibilidad.idMesa
                       from restaurantes 
                       INNER join disponibilidad
@@ -123,7 +131,11 @@ require "./layout/header.php";
             $nombreResto = $row[1];
             $idResto= $row[0];
             $mesa=$row[4];
-            ?>
+            // trayendo datos para mostrar promedio
+            $getProm = "SELECT AVG(punt_valor) FROM calificaciones WHERE rest_id=$idResto;";
+            $resultProm=mysqli_query($con, $getProm);
+            $verProm=mysqli_fetch_array($resultProm);
+            $promedio=$verProm[0]; ?>
             <!-- tarjetas de restaurants-->
             <form action="restaurantes.php" method="POST" enctype="multipart/form-data">
               <div class="card item m-5 tarjetas-fondo" style="width: 700px">
@@ -133,7 +145,7 @@ require "./layout/header.php";
                   <input type=hidden name=fecha value=<?php echo $fecha ?>>
                   <input type=hidden name=comensales value=<?php echo $comensales ?>>
                   <input type=hidden name=mesa value=<?php echo $mesa ?>>
-                  <?php echo "<h5 class='card-title'> $nombreResto</h5>"; ?>
+                  <h5 class='card-title'> <?php echo $nombreResto . " ". number_format($promedio, 1)?> <span class="estrella-color">&#9733 </span> </h5>
                   <button name="submit" class="btn btn-primary"> Reservar </button>
                 </div>
               </div>
@@ -149,23 +161,11 @@ require "./layout/header.php";
     ?> 
   </div>         
 
+
 <?php
 require "./layout/footer.php";
 ?>
 
-
-
-
-
-
-
-
-
-<!-- js bootstrap -->
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
- integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
- integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
 
 </body>
 </html>

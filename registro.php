@@ -41,48 +41,41 @@ if($_POST['email']==""){
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Food Experience - Registro</title>
 
-   <link rel="stylesheet" href="estilos.css">
+        <!-- css bootstrap -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+    integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="cssGrid.css">
+
 </head>
 <body>
 
-<!-- header -->
-<header >
-    <!-- logo izq -->
-    <div class="logo">
-        <img src="./imagenes/logo.png">
-    </div>
-    <!-- título central -->
-    <div class="titulo">
-        <h1 class="centrar">Food Experience</h1>
-    </div>
-    <!-- loggin -->
-    <div class="loguearse">
-        <p> </P>
-    </div>
-</header>
+<?php
+require "./layout/header.php";
+?>
 
 
 
 <?php
 // mensaje si el mail ya está en uso
 if(mysqli_affected_rows($con)>0){
-    echo "<h3 class='centrar mt-3'> El correo electrónico <?php echo $email ?> ya está en uso. <h3>";
-    echo "<br><h3 class='centrar'> Intente con otro.<h3>";
+    echo "<h3 class='centrar mt-3 textoPrinc'> El correo electrónico <?php echo $email ?> ya está en uso.<br> Intente con otro.<br> <h3>";
     ?>
-    <meta http-equiv="Refresh" content="4; url=formRegistro.php">
+    <meta http-equiv="Refresh" content="2; url=formRegistro.php">
 <?php
     }
     // si no está en uso
     else{
-        $sql= "INSERT into usuarios (nombre, apellido, email, contra, cel)
-        values ('$nombre','$apellido','$email','$contra','$tel');";
+        $sql= "INSERT into usuarios (nombre, apellido, email, contra, cel, rol_id)
+        values ('$nombre','$apellido','$email','$contra','$tel', 2);";
 
         $resulset= mysqli_query($con,$sql);
 
         if (mysqli_affected_rows ($con)>0){
 
             ?>
-            <div>
+            <div class="textoPrinc">
              <h3 class='centrar mt-3'> El usuario <?php echo $email ?> se registró correctamente </h3>  
             </div>
              <meta http-equiv="Refresh" content="2; url=index.php"> 
@@ -91,7 +84,7 @@ if(mysqli_affected_rows($con)>0){
             }
             else{   
                ?>
-            <div>
+            <div class="textoPrinc">
             <h3 class='centrar mt-3'> El usuario <?php echo $email ?> no se pudo registrar </h3>
             </div>
             <meta http-equiv="Refresh" content="2; url=index.php">  
@@ -101,37 +94,11 @@ if(mysqli_affected_rows($con)>0){
     }
 ?>
 
+  
 
-
-
-  <footer>  <!-- footer -->
-  <!-- parte izquierda -->
-  <div class="item-footer">
-    <p> </p>
-  </div>
-    <!-- parte centro -->
-  <div class="item-footer centrar">
-    <p> Hecho con <i class="bi bi-suit-heart-fill" style="font-size:0.8rem; color:red"></i>
-  </div>
-  <!-- parte derecha -->
-  <div class="item-footer derecha">
-    <a href="#">
-      <i class="bi bi-github" style="font-size:2rem; color:white"></i>
-      </a>
-    <a href="">
-      <i class="bi bi-whatsapp" style="font-size:2rem; color:green"></i>
-    </a>
-    <a href="#">
-      <i class="bi bi-envelope" style="font-size:2rem; color:black"></i>
-    </a>
-  </div>
-
-
-  </footer>
-
-
-
-
+<?php
+require "./layout/footer.php";
+?>
 
    
 </body>
