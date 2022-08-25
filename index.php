@@ -39,10 +39,13 @@ require "./layout/header.php";
     <div class="textoPrinc">
 
       <br><h2> ¡Bienvenido a Food Experience! </h2><br>
-      <p> Contamos con el catálogo más completo de los mejores restaurantes de zona sur.</p>
+      <p> La Web lider en Reservas gastronómicas</p>
+       <br>
+       <a class="reser" href="#pie">RESERVAR </a>
 
-      <p> Podés hacer tus reservas para el día y restaurante que quieras. Utilizá el
-        buscador y te aparecerán los restaurantes disponibles. </p><br>
+      <br>
+      <br>
+     
     </div>
 
     <!-- CAROUSEL-->
@@ -75,7 +78,7 @@ require "./layout/header.php";
     </div>
 
     <!-- BUSCADOR -->
-    <div class="buscador"><br>
+    <div id="pie" class="buscador"><br>
       <form class="buscador2" action="buscarRest.php" method="post">
         <!-- calendario -->
         <?php $diaActual= date('Y-m-d');
