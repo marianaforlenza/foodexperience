@@ -31,13 +31,19 @@ div.titulo{
     font-family: 'Cookie', cursive;
 }
 
+.reser{
+text-decoration: underline;
+color: white;
+}
+
 h1.titu{
 	font-size: 72px;
 }
 
 .textoPrinc{
     color: #5f94ff;
-    font-family: 'Open Sans';
+    font-family: 'Cutive Mono', monospace;
+    font-family: 'Merienda One', cursive;
 }
 
 div.textoPrinc>h2{
