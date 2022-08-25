@@ -48,7 +48,16 @@ $campos = mysqli_fetch_array($resultRest);
 
 <?php
 require "./layout/header.php";
+  ?>
+     <!-- botón Volver -->
+    <div class="boton-volver">
+        <a href="index.php">
+          <p>Volver <i class="bi bi-house-fill" style="font-size:2rem; color: rgb(78, 76, 196)"></i></p>
+            
+        </a>
+    </div>
 
+<?php
 
 $nombreResto = $campos[1];
 $tel =$campos['tel'];
