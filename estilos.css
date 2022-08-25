@@ -27,6 +27,12 @@ header{
 	background-image: url("./imagenes/fondo-pantalla.jpg");
 }
 
+.boton-volver{
+
+padding-right: 1200px;
+
+}
+
 div.titulo{
     font-family: 'Cookie', cursive;
 }
