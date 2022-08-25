@@ -51,6 +51,7 @@ require "./layout/header.php";
             <th class="filas-tabla"> Restaurante </th>
             <th class="filas-tabla"> Zona </th>
             <th class="filas-tabla"> Dirección </th>
+            <th class="filas-tabla"> Cantidad de Comensales </th>
             <th> </th>
         </tr>
 
