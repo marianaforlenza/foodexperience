@@ -33,6 +33,12 @@ require "./layout/header.php";
 ?>
 
 
+<!-- botón Volver -->
+<div class="boton-volver m-3">
+    <a class="btn btn-outline-light" href="index.php">Volver</a>
+</div>
+
+
 <?php
 $sqlEliminarReserva="SELECT * FROM disponibilidad WHERE fecha = '$fecha' and res_id = $idResto and idMesa = $mesa;";
 

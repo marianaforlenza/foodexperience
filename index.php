@@ -39,13 +39,9 @@ require "./layout/header.php";
     <div class="textoPrinc">
 
       <br><h2> ¡Bienvenido a Food Experience! </h2><br>
-      <p> La Web lider en Reservas gastronómicas</p>
-       <br>
-       <a class="reser" href="#pie">RESERVAR </a>
+      <p> La web líder en Reservas gastronómicas</p><br>
 
-      <br>
-      <br>
-     
+      <a class="reser" href="#pie">RESERVAR </a><br><br>
     </div>
 
     <!-- CAROUSEL-->
@@ -61,7 +57,7 @@ require "./layout/header.php";
             $activo = "active";
           } ?>
         <div class="carousel-item <?php echo $activo?>">
-          <img class="" width="850px" height="637px" src="data:<?php echo $fotos['tipoImagen1']; ?>;base64,<?php echo base64_encode($fotos['imagen1']);?>">
+          <img class="carrusel-index"  src="data:<?php echo $fotos['tipoImagen1']; ?>;base64,<?php echo base64_encode($fotos['imagen1']);?>">
         </div>
         <?php
         $cont_slide++;

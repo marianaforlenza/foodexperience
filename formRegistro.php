@@ -15,7 +15,7 @@ session_start();
 
     <link rel="stylesheet" href="estilos.css">
     <link rel="stylesheet" href="cssGrid.css">
-    
+
 </head>
 
 <body>
@@ -23,6 +23,12 @@ session_start();
 <?php
 require "./layout/header.php";
 ?>
+
+<!-- botón Volver -->
+<div class="boton-volver m-3">
+    <a class="btn btn-outline-light" href="index.php">Volver</a>
+</div>
+
     
     <!-- registro -->
     <form class="was-validated formu-registro mb-5" action="registro.php" method="post" id="miformulario" onsubmit="verificarPasswords(); return false">
@@ -30,15 +36,15 @@ require "./layout/header.php";
                 <div class="sign-up-htm login-html login-form">
                     <div class="group input-group is-invalid">
                         <label for="user" class="label">Email</label>
-                        <input id="user" type="text" class="input form-control is-invalid" aria-describedby="validatedInputGroupPrepend" pattern="[a-z0-9._]+@[a-z0-9.-]+\.[a-z]{2,4}$" maxlength="45" required name="email">
+                        <input id="user" type="text" class="input form-control is-invalid inputMinus" aria-describedby="validatedInputGroupPrepend" pattern="[a-z0-9._]+@[a-z0-9.-]+\.[a-z]{2,4}$" maxlength="45" required name="email">
                     </div>
                     <div class="group input-group is-invalid">
                         <label for="user" class="label">Nombre</label>
-                        <input id="user" type="text" class="input form-control is-invalid" aria-describedby="validatedInputGroupPrepend" pattern="[a-zA-ZñÑ\s]{2,45}" title="Solo letras sin tilde. Tamaño mínimo: 2, máximo: 45" required name="nombre">
+                        <input id="user" type="text" class="input form-control is-invalid inputCap" aria-describedby="validatedInputGroupPrepend" pattern="[a-zA-ZñÑ\s]{2,45}" title="Solo letras sin tilde. Tamaño mínimo: 2, máximo: 45" required name="nombre">
                     </div>
                     <div class="group input-group is-invalid">
                         <label for="user" class="label">Apellido</label>
-                        <input id="user" type="text" class="input form-control is-invalid" aria-describedby="validatedInputGroupPrepend" pattern="[a-zA-ZñÑ\s]{2,45}" title="Solo letras sin tilde. Tamaño mínimo: 2, máximo: 45" required name="apellido">
+                        <input id="user" type="text" class="input form-control is-invalid inputCap" aria-describedby="validatedInputGroupPrepend" pattern="[a-zA-ZñÑ\s]{2,45}" title="Solo letras sin tilde. Tamaño mínimo: 2, máximo: 45" required name="apellido">
                     </div>
                     <div class="group input-group is-invalid">
                         <label for="pass" class="label">Contraseña</label>

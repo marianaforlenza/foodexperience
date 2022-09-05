@@ -5,9 +5,9 @@ if(isset($_GET['logout'])){
   session_destroy();
   echo '<meta http-equiv="Refresh" content="0; url=index.php">';
 }
-?>
 
-<?php
+
+
 
 ?>
 
@@ -34,17 +34,14 @@ if(isset($_GET['logout'])){
 require "./layout/header.php";
 ?>
 
-
+    <!-- botón Volver -->
+    <div class="boton-volver m-3">
+        <a class="btn btn-outline-light" href="index.php">Volver</a>
+    </div>
 
   <div class="buscarRest">
- 
-       <!-- botón Volver -->
-    <div class="boton-volver">
-        <a href="index.php">
-          <p>Volver <i class="bi bi-house-fill" style="font-size:2rem; color: rgb(78, 76, 196)"></i></p>
-            
-        </a>
-    </div>
+
+
 
 
     <?php
@@ -89,8 +86,8 @@ require "./layout/header.php";
             $promedio=$verProm[0]; ?>
             <!-- tarjetas de restaurants-->
             <form action="restaurantes.php" method="POST" enctype="multipart/form-data">
-              <div class="card item m-5 tarjetas-fondo" style="width: 700px">
-                <img width="600" height="350" class="card-img-top" src="data:<?php echo $row[3]; ?>;base64,<?php echo base64_encode($row[2]);?>">
+              <div class="card item m-5 tarjetas-fondo tarjetas-tam">
+                <img class=" tarj-fotos-tam" src="data:<?php echo $row[3]; ?>;base64,<?php echo base64_encode($row[2]);?>">
                 <div class="card-body centrar">
                   <input type=hidden name=idResto value=<?php echo $idResto ?>>
                   <input type=hidden name=fecha value=<?php echo $fecha ?>>

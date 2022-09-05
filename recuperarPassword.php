@@ -28,9 +28,14 @@ require "conexion.php";
 require "./layout/header.php";
 ?>
 
+<!-- botón Volver -->
+<div class="boton-volver m-3">
+    <a class="btn btn-outline-light" href="index.php">Volver</a>
+</div>
+
 
 <form action="enviarMail.php" method="post" class="textoPrinc">
- <h5 class="textoPrinc"> Ingrese su correo electrónico así le enviamos un mail para que pueda recuperar su contraseña </h5><br>   
+ <h5 > Ingrese su correo electrónico así le enviamos un mail para que pueda recuperar su contraseña </h5><br>   
 <input type="text" class="tamanio-form" name="correo" placeholder="Ingrese su mail" required>
 <input type="submit" class="btn btn-primary btn-sm" value="Enviar mail">
 </form>

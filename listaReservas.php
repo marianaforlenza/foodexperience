@@ -41,8 +41,17 @@ $con = mysqli_connect($servidorBD, $usuarioBD, $contraBD, $baseDatosBD) or die (
 require "./layout/header.php";
 ?>
 
-  
-    <br><h4 class="textoPrinc"> Reservas actuales: </h4><br>
+
+<!-- botón Volver -->
+<div class="boton-volver m-3">
+    <a class="btn btn-outline-light" href="index.php">Volver</a>
+</div>
+
+
+
+
+<div class="textoPrinc tablaR">
+    <br><h4> Reservas actuales: </h4><br>
     <table>
         <tr>
             <th class="filas-tabla"> Fecha </th>
@@ -83,8 +92,10 @@ require "./layout/header.php";
          <?php
         } ?>
     </table>
+</div>
 
-    <br><br><h4 class="textoPrinc"> Historial de reservas: </h4><br>
+<div class="textoPrinc tablaR">
+    <br><br><h4> Historial de reservas: </h4><br>
     <table>
         <tr>
             <th> Fecha </th>
@@ -123,6 +134,7 @@ require "./layout/header.php";
          <?php
         } ?>
     </table>
+</div>
 
 
     <?php

@@ -39,6 +39,15 @@ if($_SESSION['rol']!=1){
 require "./layout/header.php";
 ?>
 
+
+<!-- botón Volver -->
+<div class="boton-volver m-3">
+    <a class="btn btn-outline-light" href="index.php">Volver</a>
+</div>
+
+
+
+
 <?php
 
 // Última fecha agregada a la BD
@@ -60,35 +69,35 @@ if(mysqli_affected_rows($con)>0){
     ?>
 
 
-    <form action="datos.php" method="POST" class="textoPrinc">
-        <?php echo "<br>Hasta el momento, se pueden realizar reservas hasta la fecha $fechaMax. <br><br>"; ?>
-        <label for="fechaInicial">Agregar nuevos días de reserva desde la fecha:</label>
+    <form action="agrFechas.php" method="POST" class="textoPrinc">
+        <?php echo "<br><h4>Hasta el momento, se pueden realizar reservas hasta la fecha $fechaMax. </h4><br><br>"; ?>
+        <label for="fechaInicial"><h5>Agregar nuevos días de reserva desde la fecha: </h5></label>
         <input type="date" id="fechaInicial" name="fechaInicial"
         value=<?php echo "$fechaMaxSig" ?>
         min=<?php echo "$fechaMaxSig" ?> max="2022-12-31">
 
-        <label for="fechaFinal"> hasta la fecha:</label>
+        <label for="fechaFinal"><h5> hasta la fecha: </h5></label>
         <input type="date" id="fechaFinal" name="fechaFinal"
         value=<?php echo "$fechaMaxMesSig" ?>
         min=<?php echo "$fechaMaxSig" ?> max="2022-12-31">
 
-        <input type="submit" value="Agregar fechas" class="btn btn-primary">
+        <br><input type="submit" value="Agregar fechas" class="btn btn-primary mb-3 mt-3">
     </form>
  <?php
 }else{ 
     $diaActual = date('Y-m-d');?>
-    <form action="datos.php" method="POST" class="textoPrinc">
-        <label for="fechaInicial">Agregar nuevos días de reserva desde la fecha:</label>
+    <form action="agrFechas.php" method="POST" class="textoPrinc">
+        <label for="fechaInicial"><h5>Agregar nuevos días de reserva desde la fecha: </h5></label>
         <input type="date" id="fechaInicial" name="fechaInicial"
         value=<?php echo "$diaActual" ?>
         min=<?php echo "$diaActual" ?> max="2022-12-31">
 
-        <label for="fechaFinal"> hasta la fecha:</label>
+        <label for="fechaFinal"><h5> hasta la fecha: </h5></label>
         <input type="date" id="fechaFinal" name="fechaFinal"
         value=<?php echo "$diaActual" ?>
         min=<?php echo "$diaActual" ?> max="2022-12-31">
 
-        <input type="submit" value="Agregar fechas" class="btn btn-primary">
+        <br><input type="submit" value="Agregar fechas" class="btn btn-primary mb-3 mt-3">
     </form>
  <?php
 } ?>

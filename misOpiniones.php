@@ -10,6 +10,15 @@ require "conexion.php";
 
 $con = mysqli_connect($servidorBD, $usuarioBD, $contraBD, $baseDatosBD) or die ("no se pudo conectar a la Base de datos");
 
+if(isset($_SESSION['usu_mail'])){
+    $nomyape= $_SESSION['nombre_completo'];
+}
+else{
+    echo "ACCESO NO AUTORIZADO<br> DEBE INICIAR SESIÓN";
+    echo '<meta http-equiv="Refresh" content="3; url=index.php">';
+    exit();
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +27,7 @@ $con = mysqli_connect($servidorBD, $usuarioBD, $contraBD, $baseDatosBD) or die (
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Food Experience</title>
 
     <!-- css bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
@@ -27,21 +36,22 @@ $con = mysqli_connect($servidorBD, $usuarioBD, $contraBD, $baseDatosBD) or die (
     <link rel="stylesheet" href="estilos.css">
     <link rel="stylesheet" href="cssGrid.css">
 </head>
+
 <body>
 
 <?php
 require "./layout/header.php";
 ?>
-   <!-- botón Volver -->
-    <div class="boton-volver">
-        <a href="index.php">
-          <p>Volver <i class="bi bi-house-fill" style="font-size:2rem; color: rgb(78, 76, 196)"></i></p>
-            
-        </a>
-    </div>
 
-    
-    <br><h4 class="textoPrinc"> Mis opiniones: </h4><br>
+
+<!-- botón Volver -->
+<div class="boton-volver m-3">
+    <a class="btn btn-outline-light" href="index.php">Volver</a>
+</div>
+
+
+   <div class="textoPrinc tablaR"> 
+    <br><h4> Mis opiniones: </h4><br>
     <table>
         <tr>
             <th class="filas-tabla"> Restaurante </th>
@@ -71,6 +81,7 @@ require "./layout/header.php";
          <?php
         } ?>
     </table>
+</div>
 
 
 
@@ -80,4 +91,5 @@ require "./layout/footer.php";
 
 
 </body>
+
 </html>

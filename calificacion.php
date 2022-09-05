@@ -4,6 +4,16 @@ require "conexion.php";
 
 $con = mysqli_connect($servidorBD, $usuarioBD,$contraBD,$baseDatosBD) or die ("no se puede conectar a la base de datos");
 
+if(isset($_SESSION['usu_mail'])){
+    $nomyape= $_SESSION['nombre'];
+}
+else{
+    echo "ACCESO NO AUTORIZADO<br> DEBE INICIAR SESIÓN";
+    echo '<meta http-equiv="Refresh" content="3; url=index.php">';
+    exit();
+}
+
+
 $idResto = $_POST['idResto'];
 $fecha=$_POST['fecha'];
 $comensales=$_POST['comensales'];
@@ -34,6 +44,11 @@ $diaActual= date('Y-m-d');
 <?php
 require "./layout/header.php";
 ?>
+
+<!-- botón Volver -->
+<div class="boton-volver m-3">
+    <a class="btn btn-outline-light" href="index.php">Volver</a>
+</div>
 
 
 <?php

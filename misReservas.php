@@ -10,6 +10,16 @@ require "conexion.php";
 
 $con = mysqli_connect($servidorBD, $usuarioBD, $contraBD, $baseDatosBD) or die ("no se pudo conectar a la Base de datos");
 
+if(isset($_SESSION['usu_mail'])){
+    $nomyape= $_SESSION['nombre_completo'];
+}
+else{
+    echo "ACCESO NO AUTORIZADO<br> DEBE INICIAR SESIÓN";
+    echo '<meta http-equiv="Refresh" content="3; url=index.php">';
+    exit();
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -35,23 +45,22 @@ $con = mysqli_connect($servidorBD, $usuarioBD, $contraBD, $baseDatosBD) or die (
 require "./layout/header.php";
 ?>
 
-     <!-- botón Volver -->
-    <div class="boton-volver">
-        <a href="index.php">
-          <p>Volver <i class="bi bi-house-fill" style="font-size:2rem; color: rgb(78, 76, 196)"></i></p>
-            
-        </a>
-    </div>
+<!-- botón Volver -->
+<div class="boton-volver m-3">
+    <a class="btn btn-outline-light" href="index.php">Volver</a>
+</div>
 
-  
-    <br><h4 class="textoPrinc"> Reservas actuales: </h4><br>
+
+<div class="textoPrinc tablaR">
+    
     <table>
+       <br><h4> Reservas actuales: </h4><br> 
         <tr>
             <th class="filas-tabla"> Fecha </th>
             <th class="filas-tabla"> Restaurante </th>
             <th class="filas-tabla"> Zona </th>
             <th class="filas-tabla"> Dirección </th>
-            <th class="filas-tabla"> Cantidad de Comensales </th>
+            <th> Cantidad comensales </th>
             <th> </th>
         </tr>
 
@@ -76,6 +85,7 @@ require "./layout/header.php";
                 ?>
                 <td><?php echo $misReservasZona[1] ?></td>
                 <td><?php echo $misReservasRest['direccion'] ?></td>
+                <td><?php echo $misReservas['cant_comensales'] ?></td>
                 <td>    <form method="POST">
                         <input type=hidden name="fechaReserva" value=<?php echo $misReservas['fecha'] ?>>
                         <input type=hidden name="idRestRes" value=<?php echo $misReservas[0] ?>>
@@ -86,10 +96,11 @@ require "./layout/header.php";
          <?php
         } ?>
     </table>
+</div> 
 
 
-
-    <br><br><br><h4 class="textoPrinc"> Historial de reservas: </h4><br>
+<div class="textoPrinc tablaR">
+    <br><br><br><br><h4> Historial de reservas: </h4><br>
     <table>
 
         <tr>
@@ -97,6 +108,7 @@ require "./layout/header.php";
             <th> Restaurante </th>
             <th> Zona </th>
             <th> Dirección </th>
+            <th> Cantidad comensales </th>
         </tr>
 
         <?php
@@ -120,12 +132,13 @@ require "./layout/header.php";
                 ?>
                 <td><?php echo $misReservasZona[1] ?></td>
                 <td><?php echo $misReservasRest['direccion'] ?></td>
+                <td><?php echo $misReservas['cant_comensales'] ?></td>
             </tr>
          <?php
         } ?>
     </table>
 
-
+</div>
 
 
 

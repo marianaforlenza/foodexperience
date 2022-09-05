@@ -40,6 +40,14 @@ $con = mysqli_connect($servidorBD, $usuarioBD, $contraBD, $baseDatosBD) or die (
 require "./layout/header.php";
 ?>
 
+
+<!-- botón Volver -->
+<div class="boton-volver m-3">
+    <a class="btn btn-outline-light" href="index.php">Volver</a>
+</div>
+
+
+
   
     <br><h4 class="textoPrinc"> Usuarios: </h4><br>
     <table>
