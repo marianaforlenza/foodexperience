@@ -64,8 +64,8 @@ margin-top: 0.625rem;
 /* grid HEADER */
 header{
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-areas: "headerI   headerC     headerD";
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-areas: "headerI headerI   headerC headerC     headerD     headerD";
 }
 
 header .headerI{
@@ -73,7 +73,9 @@ header .headerI{
     justify-self: start;
     /* height: 5.625rem;
     width: 5.625rem; */
-    
+    /* display: none;
+    overflow: hidden;
+     */
 }
 
 header .headerC{
@@ -94,6 +96,7 @@ footer{
     grid-template-areas: "footerI   footerC footerD";
     padding-top: 0.625rem;
     align-items: center;
+    /* text-align: center; */
 }
 
 footer .footerI{
@@ -103,8 +106,12 @@ footer .footerI{
 footer .footerC{
     grid-area: footerC;
     justify-self: center;
-
+    text-align: center;
 }
+
+/* p .textoFooter{
+    text-align: center;
+} */
 
 footer .footerD{
     grid-area: footerD;
@@ -196,6 +203,10 @@ div.tarjetas-fondo{
 .fotos-mapa-punt .punt-com{
     grid-area: punt-com;
     justify-self: center;
+    background-image: url("./imagenes/tarjetas-fondo.jpg");
+    align-self: flex-start;
+    background-repeat: round;
+
 }
 
 

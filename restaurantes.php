@@ -305,16 +305,20 @@ if(isset($idUsuario)){
         <?php
         $getComentarios= "SELECT * FROM calificaciones WHERE rest_id=$idResto and comentario!='';";
         $resultComentarios = mysqli_query($con, $getComentarios);
-        while($comentarios = mysqli_fetch_array($resultComentarios)){
-          $getNombreC = "SELECT nombre, apellido FROM usuarios WHERE id=$comentarios[3];";
-          $resultNombreC= mysqli_query($con, $getNombreC);
-          $datosC = mysqli_fetch_array($resultNombreC);
-          $nombreC = $datosC[0];
-          $apellidoC = $datosC[1];
-          $letraApell = substr($apellidoC, 0, 1)?>
-          <br><p> <?php echo $nombreC." ". $letraApell ?> </p>
-          <h5> <?php echo $comentarios['comentario'] ?> </h5><hr color='black' size=10>
-          <?php
+        if(mysqli_affected_rows($con)>0){
+          while($comentarios = mysqli_fetch_array($resultComentarios)){
+            $getNombreC = "SELECT nombre, apellido FROM usuarios WHERE id=$comentarios[3];";
+            $resultNombreC= mysqli_query($con, $getNombreC);
+            $datosC = mysqli_fetch_array($resultNombreC);
+            $nombreC = $datosC[0];
+            $apellidoC = $datosC[1];
+            $letraApell = substr($apellidoC, 0, 1)?>
+            <br><p> <?php echo $nombreC." ". $letraApell ?> </p>
+            <h5> <?php echo $comentarios['comentario'] ?> </h5><hr color='black' size=10>
+            <?php
+          }
+        }else{
+          echo "<h5>Sé el primero en comentar este restaurante.</h5>";
         }
         ?>
       </div>

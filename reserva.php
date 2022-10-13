@@ -40,9 +40,15 @@ $sqlReservar = "UPDATE disponibilidad SET estado = true, usu_id = $idUsuario
 
 $resultado = mysqli_query($con, $sqlReservar);
 
-if(mysqli_affected_rows($con)>0){
-    echo "<h4 class='textoPrinc'> La reserva ha sido realizada. </h4>";
-    echo '<meta http-equiv="Refresh" content="2; url=index.php">';
+if(mysqli_affected_rows($con)>0){ ?>
+    <h4 class='textoPrinc'> La reserva ha sido realizada. <script src="https://cdn.lordicon.com/xdjxvujz.js"></script>
+    <lord-icon
+        src="https://cdn.lordicon.com/xxdqfhbi.json"
+        trigger="hover"
+        colors="primary:#e88c30,secondary:#a866ee,tertiary:#f28ba8,quaternary:#f24c00,quinary:#121331"
+        style="width:50px;height:50px">
+    </lord-icon> </h4>
+     <?php echo '<meta http-equiv="Refresh" content="4; url=index.php">';
 }else{
     echo "<h4 class='textoPrinc'> No se pudo llevar a cabo la reserva. </h4>";
     echo '<meta http-equiv="Refresh" content="2; url=index.php">';

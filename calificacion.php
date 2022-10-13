@@ -1,11 +1,14 @@
 <?php
 
+session_start();
+
+
 require "conexion.php";
 
 $con = mysqli_connect($servidorBD, $usuarioBD,$contraBD,$baseDatosBD) or die ("no se puede conectar a la base de datos");
 
 if(isset($_SESSION['usu_mail'])){
-    $nomyape= $_SESSION['nombre'];
+    $nomyape= $_SESSION['nombre_completo'];
 }
 else{
     echo "ACCESO NO AUTORIZADO<br> DEBE INICIAR SESIÓN";

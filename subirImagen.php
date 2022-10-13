@@ -29,8 +29,8 @@ $con = mysqli_connect($servidorBD, $usuarioBD, $contraBD, $baseDatosBD) or die (
     <h4 >Seleccione imagen a cargar</h4>
     <form name="MiForm" id="MiForm" method="POST" action="subiendoImagen.php" enctype="multipart/form-data">
         <!-- IMAGEN PRINCIPAL -->
+        <div>
         <label >Archivos de imagenPrincipal</label>
-        <div >
             <input type="file"  id="image" name="fotoPrincipal" multiple><br><br>
         </div>
 

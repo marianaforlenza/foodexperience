@@ -21,6 +21,45 @@ $resulset=mysqli_query($con, $sqlVerifica);
 
 $registro=mysqli_fetch_assoc($resulset);
 
+
+
+if(mysqli_affected_rows($con)>0){
+
+    $usu=$registro['email'];
+    $contras= $registro['contra'];
+    $nomyape= $registro['nombre']." ".$registro['apellido'];
+    $idUsuario= $registro['id'];
+    $rol= $registro['rol_id'];
+    //verifico pass
+    if($registro['contra']==$contra){
+        session_start();
+        ?>
+        <!-- <div>
+        <h3 class='centrar mt-3 textoPrinc'> Iniciando sesión <h3>
+        </div> -->
+        <?php
+        //cargar variables de sesion
+        $_SESSION['usu_mail']=$usu;
+        $_SESSION['nombre_completo']=$nomyape;
+        $_SESSION['idUsuario']= $idUsuario;
+        $_SESSION['rol'] = $rol;
+        ?>
+    <meta http-equiv="Refresh" content="2; url=index.php">
+
+<?php
+    }
+
+
+}
+else{
+    ?>
+    <div>
+    <h3 class='centrar mt-3 textoPrinc'> No existe el usuario <?php echo $mail ?> <h3>
+    </div>
+    <?php
+    echo '<meta http-equiv="Refresh" content="2; url=index.php">';
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -47,33 +86,15 @@ require "./layout/header.php";
 
 
 <?php
+if(isset($_SESSION['usu_mail'])){ ?>
+    <div>
+    <h3 class='centrar mt-3 textoPrinc'> Iniciando sesión <h3>
+    </div>
 
-if(mysqli_affected_rows($con)>0){
 
-    $usu=$registro['email'];
-    $contras= $registro['contra'];
-    $nomyape= $registro['nombre']." ".$registro['apellido'];
-    $idUsuario= $registro['id'];
-    $rol= $registro['rol_id'];
-    //verifico pass
-    if($registro['contra']==$contra){
-        session_start();
-        ?>
-        <div>
-        <h3 class='centrar mt-3 textoPrinc'> Iniciando sesión <h3>
-        </div>
-        <?php
-        //cargar variables de sesion
-        $_SESSION['usu_mail']=$usu;
-        $_SESSION['nombre_completo']=$nomyape;
-        $_SESSION['idUsuario']= $idUsuario;
-        $_SESSION['rol'] = $rol;
-        ?>
-    <meta http-equiv="Refresh" content="0; url=index.php">
 
 <?php
-    }
-    else{
+}    else{
     ?>
     <div>
         <h3 class='centrar mt-3 textoPrinc'> La contraseña es incorrecta <h3>
@@ -82,15 +103,6 @@ if(mysqli_affected_rows($con)>0){
         echo '<meta http-equiv="Refresh" content="2; url=index.php">';
     }
 
-}
-else{
-    ?>
-    <div>
-    <h3 class='centrar mt-3 textoPrinc'> No existe el usuario <?php echo $mail ?> <h3>
-    </div>
-    <?php
-    echo '<meta http-equiv="Refresh" content="2; url=index.php">';
-}
 
 ?>
 

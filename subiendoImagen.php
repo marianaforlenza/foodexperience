@@ -25,7 +25,7 @@ if(isset($_POST["submit"])){
         $resultSubir = mysqli_query($con, $sqlSubir);
 
         if($resultSubir){
-            echo "Archivo Subido Correctamente en imagenPrincipal. <br>";
+            echo "Archivo Subido Correctamente en imagen Principal. <br>";
         }else{
             echo "Ha fallado la subida, reintente nuevamente.";
         } 
@@ -47,7 +47,7 @@ if(isset($_POST["submit"])){
         $resultSubir1 = mysqli_query($con, $sqlSubir1);
 
         if($resultSubir1){
-            echo "Archivo Subido Correctamente en IMAGEN1.<br>";
+            echo "Archivo Subido Correctamente en Foto 1.<br>";
         }else{
             echo "Ha fallado la subida, reintente nuevamente.";
         } 
@@ -69,7 +69,7 @@ if(isset($_POST["submit"])){
         $resultSubir2 = mysqli_query($con, $sqlSubir2);
 
         if($resultSubir2){
-            echo "Archivo Subido Correctamente en IMAGEN2.<br>";
+            echo "Archivo Subido Correctamente en Foto 2.<br>";
         }else{
             echo "Ha fallado la subida, reintente nuevamente.";
         } 
@@ -91,7 +91,7 @@ if(isset($_POST["submit"])){
         $resultSubir3 = mysqli_query($con, $sqlSubir3);
 
         if($resultSubir3){
-            echo "Archivo Subido Correctamente en IMAGEN3.<br>";
+            echo "Archivo Subido Correctamente en Foto 3.<br>";
         }else{
             echo "Ha fallado la subida, reintente nuevamente.";
         } 
